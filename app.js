@@ -6,4 +6,5 @@ app.get('/', (req, res) => {
     res.send('We are on home');
 });
 
-app.listen(3001);
+console.log('app listen 3000 port');
+app.listen(3000);
