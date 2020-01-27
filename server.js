@@ -1,27 +1,38 @@
 var express = require("express");
 var app = express();
-require('dotenv/config');
-const mongoose = require('mongoose');
+require("dotenv/config");
+const mongoose = require("mongoose");
+var bodyParser = require("body-parser");
 
-app.all('*', function(req, res, next) {
-    var origin = req.get('origin'); 
-    res.header('Access-Control-Allow-Origin', origin);
-    res.header("Access-Control-Allow-Headers", "X-Requested-With");
-    res.header('Access-Control-Allow-Headers', 'Content-Type');
-    next();
+app.all("*", function(req, res, next) {
+  var origin = req.get("origin");
+  res.header("Access-Control-Allow-Origin", origin);
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  next();
 });
 
+app.use(bodyParser.json());
 
-mongoose.connect(process.env.DB_CONNECTION, {useNewUrlParser: true}, () => {
-    console.log('Connected to MongoDB');
-});
-
-
-app.get("/", (req, res) => {
- res.send(JSON.stringify('Hello World'));
-});
-
+//routes
+suppliersRoutes = require("./routes/suppliers");
+app.use("/suppliers", suppliersRoutes);
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-    console.log(`Our app is running on port ${ PORT }`);
-});
+
+const start = () => {
+  app.listen(PORT, () => {
+    console.log(`Our app is running on port ${PORT}`);
+  });
+};
+
+mongoose.connect(
+  process.env.DB_CONNECTION,
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true
+  },
+  () => {
+    start();
+  }
+);
