@@ -1,7 +1,7 @@
-// in sublime
 var express = require("express");
-//var port = process.env.PORT || 3000;
 var app = express();
+require('dotenv/config');
+const mongoose = require('mongoose');
 
 app.all('*', function(req, res, next) {
     var origin = req.get('origin'); 
@@ -10,6 +10,12 @@ app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Headers', 'Content-Type');
     next();
 });
+
+
+mongoose.connect(process.env.DB_CONNECTION, {useNewUrlParser: true}, () => {
+    console.log('Connected to MongoDB');
+});
+
 
 app.get("/", (req, res) => {
  res.send(JSON.stringify('Hello World'));
