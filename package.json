@@ -2,16 +2,17 @@
   "name": "server-manage-suppliers",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "app.js",
+  "scripts": {
+    "dev-start": "nodemon app.js",
+    "start": "node app.js"
+  },
   "dependencies": {
     "express": "^4.17.1"
   },
   "devDependencies": {
+    "enhanced-resolve": "^3.3.0",
     "nodemon": "^2.0.2"
-  },
-  "scripts": {
-    "dev-start": "nodemon app.js",
-    "start": "node app.js"
   },
   "engines": {
     "node": "10.16.3",
