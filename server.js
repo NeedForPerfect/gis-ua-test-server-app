@@ -3,10 +3,11 @@ var express = require("express");
 //var port = process.env.PORT || 3000;
 var app = express();
 
-app.get("/", function (req, res) {
+app.get("/", (req, res) => {
  res.send(JSON.stringify('Hello World'));
 });
 
-app.listen(8080, function () {
- console.log(`Example app listening on port !`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port ${ PORT }`);
 });

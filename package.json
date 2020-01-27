@@ -2,10 +2,9 @@
   "name": "server-manage-suppliers",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "dev-start": "nodemon app.js",
-    "start": "node app.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "^4.17.1"
