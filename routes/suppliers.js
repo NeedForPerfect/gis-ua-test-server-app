@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();
 const Supplier = require("../model/supplier");
 
-
 router.get("/specific", (req, res) => {
   res.send("we are on supplier specific");
 });
@@ -38,7 +37,7 @@ router.put("/:id", async (req, res) => {
   try {
     res.json(
       await Supplier.findOneAndUpdate({ _id: req.params.id }, req.body, {
-        returnNewDocument: true
+        new: true
       })
     );
   } catch (e) {
@@ -48,7 +47,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   try {
-    res.json(await Supplier.findOneAndDelete({ _id: req.params.id}));
+    res.json(await Supplier.findOneAndDelete({ _id: req.params.id }));
   } catch (e) {
     console.log(e);
   }
@@ -56,10 +55,9 @@ router.delete("/:id", async (req, res) => {
 
 router.get("/isExist/:name", async (req, res) => {
   try {
-    existedSupplier = await Supplier.find({ name: req.params.name.trim()});
+    existedSupplier = await Supplier.find({ name: req.params.name.trim() });
     if (existedSupplier.length) res.json(true);
     else res.json(false);
-    
   } catch (e) {
     console.log(e);
   }
