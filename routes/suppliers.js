@@ -9,6 +9,7 @@ router.get("/specific", (req, res) => {
 
 router.post("", async (req, res) => {
   try {
+    req.body.name = req.body.name.trim();
     const supplier = new Supplier(req.body);
     await supplier.save();
     res.status(201).json(supplier);
@@ -48,6 +49,17 @@ router.patch("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
   try {
     res.json(await Supplier.findOneAndDelete({ _id: req.params.id}));
+  } catch (e) {
+    console.log(e);
+  }
+});
+
+router.get("/isExist/:name", async (req, res) => {
+  try {
+    existedSupplier = await Supplier.find({ name: req.params.name.trim()});
+    if (existedSupplier.length) res.json(true);
+    else res.json(false);
+    
   } catch (e) {
     console.log(e);
   }
